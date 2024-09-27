@@ -143,6 +143,10 @@ public class MaterialToLayerRenderPass : ScriptableRenderPass
         using (var builder = renderGraph.AddRasterRenderPass<LayerRenderPassData>(layerRenderPassName, out var passData))
         {
             InitRendererLists(frameData, ref passData, renderGraph);
+            // Here we instruct to build the graph using our passData.RendererListHandle
+            // that was created with our layer filter setting,
+            // ie; what we are going to retrieve to 'draw' in this pass will be only 
+            // what is on that specific layer...
             builder.UseRendererList(passData.RendererListHandle);
             
             // Set up texture dependencies
